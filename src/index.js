@@ -1,14 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+// import Org from "./components/Org";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import useGlobalState from "./store/useGlobalState";
+import OrgContext from "./store/org-context";
+
+const Index = () => {
+  const store = useGlobalState();
+  return (
+    <OrgContext.Provider value={store}>
+      <App />
+    </OrgContext.Provider>
+  );
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Index />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
