@@ -1,0 +1,20 @@
+.header {
+  height: 5rem;
+  background-color: #044599;
+}
+
+.header nav {
+  height: 100%;
+}
+
+.header h1 {
+  height: 100%;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  color: rgb(248, 245, 241);
+  font-size: 30px;
+  align-items: center;
+  justify-content: center;
+  font-weight: border;
+}

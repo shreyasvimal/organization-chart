@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import data from "./data.json";
 const useGlobalState = () => {
   const [state, setState] = useState(data);
@@ -24,7 +24,7 @@ const useGlobalState = () => {
   };
   const getPath = (node, target) => {
     var result;
-    node.some(({id, children = []}) => {
+    node.some(({ id, children = [] }) => {
       if (id === target) return (result = id);
       var temp = getPath(children, target);
       if (temp) return (result = id + "." + temp);
@@ -43,7 +43,7 @@ const useGlobalState = () => {
     parent.children = parent.children.filter((item) => item.id !== payload.id);
     return setState(employeeStack);
   };
-  const addReportee = (payload) => {
+  const addPosition = (payload) => {
     let employeeStack = state;
     let reporter = getNodeFromTree(employeeStack[0], payload.id);
     if (!reporter.children) {
@@ -59,10 +59,10 @@ const useGlobalState = () => {
   };
 
   const actions = (action) => {
-    const {type, payload} = action;
+    const { type, payload } = action;
     switch (type) {
       case "add":
-        return addReportee(payload);
+        return addPosition(payload);
       case "remove":
         return removeReportee(payload);
       case "edit":
@@ -71,6 +71,6 @@ const useGlobalState = () => {
         return state;
     }
   };
-  return {state, actions};
+  return { state, actions };
 };
 export default useGlobalState;

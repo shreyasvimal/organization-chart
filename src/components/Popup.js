@@ -1,14 +1,16 @@
 import OrganizationItem from "./OrganizationItem";
+
+import classes from "./Popup.module.css";
 const Popup = ({ handleClose, handleSave, parentId }) => {
   return (
-    <div className="popup-box">
-      <div className="box">
-        <span className="close-icon" onClick={handleClose}>
+    <div className={`${classes.popupBox}`}>
+      <div className={`${classes.box}`}>
+        <span className={`${classes.closeIcon}`} onClick={handleClose}>
           x
         </span>
         <OrganizationItem
           item={{ name: "", title: "" }}
-          reporteeEdit={handleSave}
+          editPosition={handleSave}
           editFlag={true}
           parentId={parentId}
           handleClose={handleClose}

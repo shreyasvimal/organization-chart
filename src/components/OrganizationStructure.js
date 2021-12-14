@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import OrganizationItem from "./OrganizationItem";
 
-import classes from './Organization-structure.module.css'
+import classes from "./Organization-structure.module.css";
 
-const OrganizationStructure = ({ data, reporteeEdit }) => {
+const OrganizationStructure = ({ data, editPosition, id }) => {
   return (
     <>
       {data.length > 0 && (
@@ -11,11 +11,11 @@ const OrganizationStructure = ({ data, reporteeEdit }) => {
           {data.map((item) => (
             <Fragment key={item.id}>
               <li>
-                <OrganizationItem item={item} reporteeEdit={reporteeEdit} />
+                <OrganizationItem item={item} parentId={id} editPosition={editPosition} />
                 {item.children && (
                   <OrganizationStructure
                     data={item.children}
-                    reporteeEdit={reporteeEdit}
+                    editPosition={editPosition}
                   />
                 )}
               </li>

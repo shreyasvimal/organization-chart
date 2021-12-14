@@ -2,7 +2,11 @@ import React, { useContext, useState, useCallback } from "react";
 import OrgContext from "./store/org-context";
 import OrganizationStructure from "./components/OrganizationStructure";
 import Popup from "./components/Popup";
-const Org = () => {
+import MainHeader from "./components/MainHeader";
+
+import classes from "./App.module.css";
+
+const App = () => {
   //Global State and Actions
   const { state, actions } = useContext(OrgContext);
   // Setting a dummy state and forceUpdate to prevent rerender and a method to update on state change only.
@@ -16,8 +20,8 @@ const Org = () => {
   const handleClose = () => {
     setIsOpen(false);
   };
-  const reporteeEdit = (action, payload) => {
-    if (action === "addReportee") {
+  const editPosition = (action, payload) => {
+    if (action === "addPosition") {
       setParentId(payload);
       setIsOpen(true);
     } else {
@@ -26,17 +30,22 @@ const Org = () => {
     }
   };
   return (
-    <div className="org-tree">
-      <OrganizationStructure data={state} reporteeEdit={reporteeEdit} />     
-      {isOpen && (
-        <Popup
-          handleClose={handleClose}
-          handleSave={reporteeEdit}
-          parentId={parentId}
-        />
-      )}
-         
-    </div>
+    <>
+      <header>
+        <MainHeader />
+      </header>
+      <div className={`${classes.organizationStructure}`}>
+        <OrganizationStructure data={state} editPosition={editPosition} />     
+        {isOpen && (
+          <Popup
+            handleClose={handleClose}
+            handleSave={editPosition}
+            parentId={parentId}
+          />
+        )}
+           
+      </div>
+    </>
   );
 };
-export default Org;
+export default App;

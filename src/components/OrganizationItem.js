@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 
-import classes from './Organization-Item.module.css'
+import TextInput from "./Input";
+import ButtonComponent from "./Button";
+import classes from "./Organization-Item.module.css";
+
 const OrganizationItem = ({
   item,
-  reporteeEdit,
+  editPosition,
   editFlag,
   parentId,
   handleClose,
@@ -13,6 +16,7 @@ const OrganizationItem = ({
   const [title, setTitle] = useState(item.title);
   const [startDate, setStartDate] = useState(item.startDate);
   const [error, setError] = useState("");
+  
   const reset = () => {
     setName(item.name);
     setTitle(item.title);
@@ -20,11 +24,7 @@ const OrganizationItem = ({
   };
   const closeEdit = (type) => {
     reset();
-    if (type === "cancel") {
-      setShowEdit(false);
-    } else {
-      handleClose();
-    }
+    type === "cancel" ? setShowEdit(false) : handleClose();
   };
   const validate = () => {
     let invalidArray = [];
@@ -35,9 +35,10 @@ const OrganizationItem = ({
       : setError("");
     return invalidArray.length === 0;
   };
-  const saveEdit = () => {
+  
+    const saveEdit = () => {
     if (validate()) {
-      reporteeEdit("edit", {
+      editPosition("edit", {
         id: item.id,
         name: name,
         title: title,
@@ -48,7 +49,7 @@ const OrganizationItem = ({
   };
   const addUser = () => {
     if (validate()) {
-      reporteeEdit("add", {
+      editPosition("add", {
         id: parentId,
         name: name,
         title: title,
@@ -61,36 +62,29 @@ const OrganizationItem = ({
     <div className={`${classes.card}`}>
       {showEdit ? (
         <div className={`${classes.cardbody}`}>
-          <label>
-            Name:
-            <input
-              id="name"
-              type="text"
-              name="name"
-              defaultValue={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </label>
-          <label>
-            Title:
-            <input
-              id="title"
-              type="text"
-              name="title"
-              defaultValue={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </label>
-          <label>
-            Start Date:
-            <input
-              id="startDate"
-              type="text"
-              name="startDate"
-              defaultValue={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-            />
-          </label>
+          <TextInput
+            id="name"
+            name="name"
+            label="Name"
+            defaultValue={name}
+            onChange={(e) => setName(e.target.value)}
+        
+            
+          />
+          <TextInput
+            id="title"
+            name="title"
+            label="Designation"
+            defaultValue={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <TextInput
+            id="startDate"
+            name="startDate"
+            label="Start Date"
+            defaultValue={name}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
           <p>{error}</p>     
         </div>
       ) : (
@@ -106,33 +100,43 @@ const OrganizationItem = ({
           <>
             {editFlag ? (
               <>
-                <span onClick={() => addUser()}>Add </span>|
-                <span onClick={() => closeEdit("close")}> Cancel</span> 
+                <ButtonComponent onClick={() => addUser()}>Add</ButtonComponent>
+                <ButtonComponent onClick={() => closeEdit("close")}>
+                  Cancel
+                </ButtonComponent>
               </>
             ) : (
               <>
-                <span onClick={() => saveEdit()}>Save </span>|
-                <span onClick={() => closeEdit("cancel")}> Cancel</span> 
+                <ButtonComponent onClick={() => saveEdit()}>
+                  Add
+                </ButtonComponent>
+                <ButtonComponent onClick={() => closeEdit("cancel")}>
+                  Cancel
+                </ButtonComponent>
               </>
             )}
           </>
         ) : (
           <>
-            <span onClick={() => setShowEdit(true)}>Edit </span>
-            {item.id != 0 && (
+            <ButtonComponent onClick={() => setShowEdit(true)}>
+              Edit
+            </ButtonComponent>
+
+            {item.id !== 0 && (
               <>
-                |
-                <span onClick={() => reporteeEdit("remove", { id: item.id })}>
-                  {" "}
-                  Remove{" "}
-                </span>
+                <ButtonComponent
+                  onClick={() => editPosition("remove", { id: item.id })}
+                >
+                  Delete
+                </ButtonComponent>
               </>
             )}
-            |
-            <span onClick={() => reporteeEdit("addReportee", item.id)}>
-              {" "}
-              Add Reportee{" "}
-            </span>
+
+            <ButtonComponent
+              onClick={() => editPosition("addPosition", item.id)}
+            >
+              Add
+            </ButtonComponent>
           </>
         )}
       </div>
