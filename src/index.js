@@ -4,11 +4,11 @@ import "./index.css";
 // import Org from "./components/Org";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import useGlobalState from "./store/useGlobalState";
+import OrgProvider from "./store/orgProvider";
 import OrgContext from "./store/org-context";
 
 const Index = () => {
-  const store = useGlobalState();
+  const store = OrgProvider();
   return (
     <OrgContext.Provider value={store}>
       <App />

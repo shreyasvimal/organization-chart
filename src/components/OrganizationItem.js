@@ -68,8 +68,6 @@ const OrganizationItem = ({
             label="Name"
             defaultValue={name}
             onChange={(e) => setName(e.target.value)}
-        
-            
           />
           <TextInput
             id="title"
@@ -85,7 +83,7 @@ const OrganizationItem = ({
             defaultValue={name}
             onChange={(e) => setStartDate(e.target.value)}
           />
-          <p>{error}</p>     
+          <p className={`${classes.errorText}`}>{error}</p>     
         </div>
       ) : (
         <div className={`${classes.cardbody}`}>
@@ -125,7 +123,7 @@ const OrganizationItem = ({
             {item.id !== 0 && (
               <>
                 <ButtonComponent
-                  onClick={() => editPosition("remove", { id: item.id })}
+                  onClick={() => editPosition("delete", { id: item.id })}
                 >
                   Delete
                 </ButtonComponent>

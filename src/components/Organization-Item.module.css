@@ -37,4 +37,6 @@
   .card .card-body label {
     display:block;
   }
-  
+  .errorText {
+    color: #b40e0e;
+  }
