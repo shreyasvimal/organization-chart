@@ -1,18 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-// import Org from "./components/Org";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import OrgProvider from "./store/orgProvider";
-import OrgContext from "./store/org-context";
+import { OrgProvider } from "./store/OrgContext";
+import { Store } from "./store";
 
 const Index = () => {
-  const store = OrgProvider();
+  const store = Store();
   return (
-    <OrgContext.Provider value={store}>
+    <OrgProvider value={store}>
       <App />
-    </OrgContext.Provider>
+    </OrgProvider>
   );
 };
 
